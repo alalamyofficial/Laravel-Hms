@@ -22,7 +22,10 @@ class HomeController extends Controller
             }else{
 
                 $doctors = Doctor::latest()->get();
-                return view('admin.home',compact('doctors'));
+                $appointments = Appointment::all();
+                $users = User::all();
+
+                return view('admin.home',compact('doctors','appointments','users'));
             }
 
         }else{

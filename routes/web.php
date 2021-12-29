@@ -4,40 +4,30 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
+//home
 Route::get('/',[HomeController::class,'index']);
 
 
-Route::get('/home',[HomeController::class,'redirect']);
+//doctors
+Route::get('all/doctors',[DoctorController::class,'show']);
 
 
 
 
 Route::group(['middleware' => 'auth'], function()
-    {
-        Route::post('/appointment',[HomeController::class,'appointment']);
+{
+    Route::get('/home',[HomeController::class,'redirect'])->middleware('verified');
 
-        Route::get('/myappointments',[HomeController::class,'myappointments']);
+    Route::post('/appointment',[HomeController::class,'appointment']);
 
-        Route::get('cancel/appointment/{id}',[HomeController::class,'cancel_appointment']);
+    Route::get('/myappointments',[HomeController::class,'myappointments']);
 
-    }
-);
+    Route::get('cancel/appointment/{id}',[HomeController::class,'cancel_appointment']);
+
+});
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -61,3 +51,10 @@ Route::get('delete/doctor/{id}',[AdminController::class,'delete_doctor']);
 Route::get('/appointments',[AdminController::class,'appointments']);
 Route::get('approve/appointment/{id}',[AdminController::class,'approve_appointment']);
 Route::get('cancel/appointment/{id}',[AdminController::class,'cancel_appointment']);
+
+
+//Mail
+Route::get('/email/{id}',[AdminController::class,'email_view']);
+Route::post('send/email/{id}',[AdminController::class,'send_email']);
+
+

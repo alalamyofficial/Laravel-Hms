@@ -50,10 +50,15 @@
                 <th class="px-6 py-2 text-xs text-gray-500">
                     Delete
                 </th>
+
+                <th class="px-6 py-2 text-xs text-gray-500">
+                    Send Mail
+                </th>
+
             </tr>
             </thead>
 
-            <tbody>
+            <tbody id="myTable">
                 @foreach($appointments as $appointment)
                     <tr class="whitespace-nowrap">
                         <td class="px-6 py-4 text-sm text-white-500">
@@ -100,6 +105,13 @@
                                 href="{{url('cancel/appointment',$appointment->id)}}" 
                                 class="px-4 py-1 text-sm text-white bg-red-400 rounded badge badge-danger">
                                 Delete
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{url('email',$appointment->id)}}" 
+                                class="btn btn-secondary btn-sm"
+                            >
+                                <i class="mdi mdi-message-outline"></i>
                             </a>
                         </td>
                     </tr>

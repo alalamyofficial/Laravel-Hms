@@ -47,7 +47,7 @@
             </tr>
             </thead>
 
-            <tbody>
+            <tbody id="myTable">
                 @foreach($doctors as $doctor)
                     <tr class="whitespace-nowrap">
 
